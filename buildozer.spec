@@ -85,9 +85,6 @@ android.accept_sdk_license = True
 #   미지정 시 buildozer 1.5.0 이 검증된 안정 릴리스를 사용.
 requirements = python3,,kivy==2.3.0,pyjnius,android
 
-p4a.branch = stable
-
-
 # ============================================
 # 로그
 # ============================================

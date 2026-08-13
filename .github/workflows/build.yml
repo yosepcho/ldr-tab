@@ -1,112 +1,137 @@
+
 name: Build APK
 
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
     timeout-minutes: 120
 
+    env:
+      ANDROID_HOME: /usr/local/lib/android/sdk
+      ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+      NDK_VERSION: 25.2.9519653
+
     steps:
-
-      # ------------------------------------
-      # 1. 소스 받기
-      # ------------------------------------
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      # ------------------------------------
-      # 2. 파이썬
-      # ------------------------------------
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
-      # ------------------------------------
-      # 3. 시스템 패키지
-      #    ubuntu-24.04 기준. libncurses5-dev 는 존재하지 않음
-      # ------------------------------------
-      - name: Install system deps
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install SDK packages and accept licenses
+        run: |
+          yes | sdkmanager --licenses > /dev/null 2>&1 || true
+          sdkmanager --install \
+            "platform-tools" \
+            "platforms;android-33" \
+            "build-tools;33.0.2" \
+            "ndk;${NDK_VERSION}"
+          ls -al "$ANDROID_HOME"
+          ls -al "$ANDROID_HOME/ndk"
+
+      - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            git zip unzip openjdk-17-jdk \
-            python3-pip python3-setuptools \
-            autoconf automake libtool libltdl-dev \
-            pkg-config zlib1g-dev libncurses-dev \
-            libtinfo6 cmake libffi-dev libssl-dev \
-            build-essential ccache patch
+            git zip unzip openjdk-17-jdk python3-pip \
+            autoconf automake libtool libtool-bin pkg-config \
+            zlib1g-dev libncurses-dev libncursesw5-dev libtinfo6 \
+            cmake libffi-dev libssl-dev build-essential \
+            ccache m4 patch
 
-      # ------------------------------------
-      # 4. buildozer  (버전 고정)
-      # ------------------------------------
-      - name: Install buildozer
+      - name: Install Buildozer
         run: |
           python -m pip install --upgrade pip
-          pip install buildozer==1.5.0 cython==0.29.36 virtualenv
+          pip install --upgrade wheel setuptools
+          pip install --upgrade "cython<3.0"
+          pip install --upgrade buildozer
 
-      # ------------------------------------
-      # 5. SDK/NDK 캐시
-      #    프로젝트 .buildozer 는 캐시하지 않음 (깨진 상태 재사용 방지)
-      # ------------------------------------
-      - name: Cache Android SDK/NDK
+      - name: Point buildozer.spec at preinstalled SDK/NDK
+        run: |
+          NDK_PATH="$ANDROID_HOME/ndk/${NDK_VERSION}"
+
+          # remove any existing (commented or active) path/version lines
+          sed -i '/^[# ]*android\.sdk_path[ ]*=/d' buildozer.spec
+          sed -i '/^[# ]*android\.ndk_path[ ]*=/d' buildozer.spec
+          sed -i '/^[# ]*android\.ndk[ ]*=/d' buildozer.spec
+          sed -i '/^[# ]*android\.api[ ]*=/d' buildozer.spec
+          sed -i '/^[# ]*android\.minapi[ ]*=/d' buildozer.spec
+          sed -i '/^[# ]*android\.accept_sdk_license[ ]*=/d' buildozer.spec
+
+          # append authoritative values under [app]
+          python - <<'PY'
+          import os, re
+          ndk = os.path.join(os.environ["ANDROID_HOME"], "ndk", os.environ["NDK_VERSION"])
+          sdk = os.environ["ANDROID_HOME"]
+          block = (
+              f"\nandroid.sdk_path = {sdk}\n"
+              f"android.ndk_path = {ndk}\n"
+              f"android.ndk = {os.environ['NDK_VERSION']}\n"
+              "android.api = 33\n"
+              "android.minapi = 24\n"
+              "android.accept_sdk_license = True\n"
+          )
+          text = open("buildozer.spec", encoding="utf-8").read()
+          m = list(re.finditer(r"^\[buildozer\]", text, re.M))
+          if m:
+              i = m[0].start()
+              text = text[:i] + block + "\n" + text[i:]
+          else:
+              text = text + block
+          open("buildozer.spec", "w", encoding="utf-8").write(text)
+          PY
+
+          echo "----- buildozer.spec (android lines) -----"
+          grep -n "^android\." buildozer.spec || true
+
+      - name: Cache Buildozer global directory
         uses: actions/cache@v4
         with:
           path: ~/.buildozer
-          key: buildozer-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
-          restore-keys: |
-            buildozer-${{ runner.os }}-
+          key: ${{ runner.os }}-bz-global-v2-${{ hashFiles('buildozer.spec') }}
+          restore-keys: ${{ runner.os }}-bz-global-v2-
 
-      # ------------------------------------
-      # 6. 사전 점검
-      # ------------------------------------
-      - name: Sanity check
-        run: |
-          echo "--- tree ---"
-          ls -R . | head -60
-          echo "--- required files ---"
-          for f in main.py buildozer.spec assets/Templat.png core/__init__.py; do
-            if [ -f "$f" ]; then echo "OK      $f"; else echo "MISSING $f"; fi
-          done
-          echo "--- spec head ---"
-          head -5 buildozer.spec
-
-      # ------------------------------------
-      # 7. 빌드
-      #    set -o pipefail 없으면 tee 가 실패를 삼킴
-      # ------------------------------------
       - name: Build APK
-        shell: bash
         run: |
           set -o pipefail
-          export ANDROID_HOME=$HOME/.buildozer/android/platform/android-sdk
           yes | buildozer -v android debug 2>&1 | tee build.log
 
-      # ------------------------------------
-      # 8. 결과물
-      # ------------------------------------
+      - name: Tail build log on failure
+        if: failure()
+        run: tail -n 250 build.log || true
+
+      - name: List output
+        if: always()
+        run: ls -al bin/ || true
+
       - name: Upload APK
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: ldr-apk
           path: bin/*.apk
           if-no-files-found: error
 
-      # ------------------------------------
-      # 9. 실패 시 로그  (always 로 두어 무조건 회수)
-      # ------------------------------------
       - name: Upload build log
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: build-log
           path: build.log
-          if-no-files-found: warn
+          if-no-files-found: ignore

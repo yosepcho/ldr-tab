@@ -34,7 +34,7 @@ version = 0.1
 #   Pillow  : 제외 (빌드 시간 단축)
 # ============================================
 
-requirements = python3,kivy==2.3.0,pyjnius,android
+
 
 
 # ============================================
@@ -83,6 +83,7 @@ android.accept_sdk_license = True
 #   develop 브랜치는 매일 바뀌고 깨진 커밋이 올라와
 #   "어제 성공 / 오늘 실패" 가 발생함.
 #   미지정 시 buildozer 1.5.0 이 검증된 안정 릴리스를 사용.
+requirements = python3==3.11.0,kivy==2.3.0,pyjnius,android
 
 
 # ============================================

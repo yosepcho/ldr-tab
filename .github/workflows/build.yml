@@ -51,15 +51,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install buildozer==1.5.0 cython==0.29.36 virtualenv
 
-      # 6. Cache
-      - name: Cache Android SDK/NDK
-        uses: actions/cache@v4
-        with:
-          path: ~/.buildozer
-          key: buildozer-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
-          restore-keys: |
-            buildozer-${{ runner.os }}-
-
       # 7. 디버그
       - name: Check environment
         run: |

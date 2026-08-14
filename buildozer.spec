@@ -64,7 +64,7 @@ android.ndk = 25b
 
 # 먼저 arm64 단독으로 빌드 → 태블릿 설치 확인
 # 설치가 거부되면 armeabi-v7a 를 추가 (빌드 시간 약 2배)
-android.archs = arm64-v8a
+android.archs = arm64-v8a, armeabi-v7a
 
 # 산출물 형식
 android.release_artifact = apk

@@ -61,7 +61,7 @@ from core.edit_mode import (
 EDIT_MODE = True
 
 ASSET_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
-TEMPLATE_PNG = os.path.join(ASSET_DIR, "template.png")
+TEMPLATE_PNG = os.path.join(ASSET_DIR, "Template.png")
 
 NOP_BASE = 36
 NOP_STEP = 5

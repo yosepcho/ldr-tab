@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# Test filepath
 """
 TXT 파일 목록을 얻는 모듈.
 
@@ -21,7 +20,6 @@ main.py 진입점 : get_files()
 import os
 import re
 import time
-from datetime import datetime, timedelta
 
 try:
     from kivy.utils import platform
@@ -39,17 +37,6 @@ MAX_FILES = 5
 # 같은 환자번호가 여러 개면 최신 것 1개만 남긴다.
 DEDUP_BY_PATIENT = True
 
-def get_this_week_wednesday():
-    today = datetime.today()
-
-    # 월=0 화=1 수=2 목=3 ...
-    days_from_wed = today.weekday() - 2
-
-    return (today - timedelta(days=days_from_wed)).strftime("%y%m%d")
-
-BASE_DIR = r"\\10.29.10.40\ldr\source_placement"
-DEFAULT_DATE = get_this_week_wednesday()
-
 # Android 기본 검색 폴더 (내장 메모리 / Download)
 ANDROID_DIR = "/storage/emulated/0/Download"
 
@@ -64,7 +51,6 @@ DATE_PATTERN = re.compile(r"^\d{6}$")
 # =====================================================
 # 플랫폼 / 권한
 # =====================================================
-
 
 def is_android():
     return platform == "android"

@@ -6,6 +6,7 @@ LDR Brachytherapy Template Viewer  (Kivy port of plot.py)
 - landscape, 1920x1200 tablet target
 """
 import time #debug
+import traceback # debug
 
 import os
 import sys
@@ -59,6 +60,7 @@ from core.edit_mode import (
     count_extra_at,
     set_retraction,
 )
+from core.smb_test import test_smb
 
 if platform == 'android':
     from android.permissions import request_permissions, Permission
@@ -75,7 +77,8 @@ if platform == 'android':
     
     # 앱이 켜지기 전에 권한 요청창을 즉시 호출합니다.
     request_permissions(required_permissions)
-# ================================================================= constants
+# 
+================================================================= constants
 
 
 EDIT_MODE = True
@@ -815,6 +818,14 @@ def head_cell(text, **kw):
 
 # ================================================================= root
 class RootView(BoxLayout):
+    def show_smb_test(self):
+        try:
+            files = test_smb()
+            self.msg("SMB Test",
+                        "\n".join(files[:30]))
+        except Exception as e:
+            self.msg("SMB ERROR",
+                        stre(e))
 
     def __init__(self, **kw):
         super().__init__(orientation="horizontal", **kw)
@@ -849,6 +860,17 @@ class RootView(BoxLayout):
                                 valign="middle")
         self.info_label.bind(size=lambda w, v:
                              setattr(w, "text_size", v))
+#########debug
+        smb_btn = Button(
+            text="SMB",
+            size_hint_x=None,
+            width=dp(110),
+            font_size=sp(17)
+        )
+        smb_btn.bind(
+            on_release=lambda *a: self.show_smb_test()
+        )
+
         open_btn = Button(
             text="Open",
             size_hint_x=None,
@@ -872,6 +894,7 @@ class RootView(BoxLayout):
         )
 
         top.add_widget(self.info_label)
+        top.add_widget(open_btn)
         top.add_widget(open_btn)
         top.add_widget(dose_btn)
 
@@ -1651,7 +1674,13 @@ class LDRApp(App):
     title = "LDR Template Viewer"
 
     def build(self):
-        return RootView()
+        
+        try:
+            root = RootView()
+        except Exception as e:
+
+         return Label(text=traceback.format_exc())
+#        return RootView()
 
 
 if __name__ == "__main__":

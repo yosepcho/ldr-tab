@@ -44,7 +44,7 @@ from kivy.metrics import dp, sp
 # ---------------------------------------------------------------- app modules
 import filesource
 from filesource import get_files, list_patient_files, label_for, parse_filename
-from core.patient_pdf import get_prostate_info
+#from core.patient_pdf import get_prostate_info    #debug
 from popups import choose_option, choose_from_list, info
 
 from core.read_txt import load_patient_path
@@ -60,7 +60,7 @@ from core.edit_mode import (
     count_extra_at,
     set_retraction,
 )
-from core.smb_test import test_smb   #debug
+#from core.smb_test import test_smb   #debug
 
 if platform == 'android':
     from android.permissions import request_permissions, Permission
@@ -817,14 +817,14 @@ def head_cell(text, **kw):
 
 # ================================================================= root
 class RootView(BoxLayout):
-    def show_smb_test(self):
-        try:
-            files = test_smb()
-            self.msg("SMB Test",
-                        "\n".join(files[:30]))
-        except Exception as e:
-            self.msg("SMB ERROR",
-                        stre(e))
+#    def show_smb_test(self):
+#        try:
+#            files = test_smb()
+#            self.msg("SMB Test",
+#                        "\n".join(files[:30]))
+#        except Exception as e:
+#            self.msg("SMB ERROR",
+#                        stre(e))
 
     def __init__(self, **kw):
         super().__init__(orientation="horizontal", **kw)
@@ -860,26 +860,26 @@ class RootView(BoxLayout):
         self.info_label.bind(size=lambda w, v:
                              setattr(w, "text_size", v))
 #########debug
-        smb_btn = Button(
-            text="SMB",
-            size_hint_x=None,
-            width=dp(110),
-            font_size=sp(17)
-        )
-        smb_btn.bind(
-            on_release=lambda *a: self.show_smb_test()
-        )
+#        smb_btn = Button(
+#            text="SMB",
+#            size_hint_x=None,
+#            width=dp(110),
+#            font_size=sp(17)
+#        )
+#        smb_btn.bind(
+#            on_release=lambda *a: self.show_smb_test()
+#        )
 
-        open_btn = Button(
-            text="Open",
-            size_hint_x=None,
-            width=dp(110),
-            font_size=sp(17)
-        )
+#        open_btn = Button(
+#            text="Open",
+#            size_hint_x=None,
+#            width=dp(110),
+#            font_size=sp(17)
+#        )
 
-        open_btn.bind(
-            on_release=lambda *a: self.open_patient()
-        )
+#        open_btn.bind(
+#            on_release=lambda *a: self.open_patient()
+#        )
 
         dose_btn = Button(
             text="Dose",
@@ -893,7 +893,7 @@ class RootView(BoxLayout):
         )
 
         top.add_widget(self.info_label)
-        top.add_widget(open_btn)
+#        top.add_widget(smb_btn)
         top.add_widget(open_btn)
         top.add_widget(dose_btn)
 

@@ -60,7 +60,7 @@ from core.edit_mode import (
     count_extra_at,
     set_retraction,
 )
-from core.smb_test import test_smb
+from core.smb_test import test_smb   #debug
 
 if platform == 'android':
     from android.permissions import request_permissions, Permission
@@ -77,10 +77,9 @@ if platform == 'android':
     
     # 앱이 켜지기 전에 권한 요청창을 즉시 호출합니다.
     request_permissions(required_permissions)
-# 
-================================================================= constants
 
 
+# ===contents
 EDIT_MODE = True
 
 ASSET_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
@@ -1664,12 +1663,12 @@ class RootView(BoxLayout):
                       % (col, row, used[2], EXTRA_STOCK[2],
                          used[3], EXTRA_STOCK[3]),
                       opts, cb)
-    # ============================================================ util
+    #============================================================ util
     def msg(self, title, text):
         choose_option(title, text, [("OK", None)], lambda v: None)
 
 
-# ================================================================= app
+#================================================================= app
 class LDRApp(App):
     title = "LDR Template Viewer"
 
@@ -1679,7 +1678,7 @@ class LDRApp(App):
             root = RootView()
         except Exception as e:
 
-         return Label(text=traceback.format_exc())
+        return Label(text=traceback.format_exc())
 #        return RootView()
 
 

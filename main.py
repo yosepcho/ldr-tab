@@ -1677,6 +1677,7 @@ class LDRApp(App):
         try:
             root = RootView()
         except Exception as e:
+            prine(e)
 
         return Label(text=traceback.format_exc())
 #        return RootView()

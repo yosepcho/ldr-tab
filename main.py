@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 """
 LDR Brachytherapy Template Viewer  (Kivy port of plot.py)
@@ -20,6 +19,7 @@ if sys.platform.startswith("win") or sys.platform.startswith("linux") \
     Config.set("graphics", "height", "1200")
 
 from kivy.app import App
+from kivy.utils import platform
 from kivy.core.image import Image as CoreImage
 from kivy.core.text import Label as CoreLabel
 from kivy.graphics import Color, Rectangle, Ellipse, Line
@@ -60,8 +60,24 @@ from core.edit_mode import (
     set_retraction,
 )
 
-
+if platform == 'android':
+    from android.permissions import request_permissions, Permission
+    
+    # 안드로이드 13(API 33) 이상 환경에 대응하는 미디어 및 저장소 권한 목록
+    required_permissions = [
+        Permission.READ_EXTERNAL_STORAGE,
+        Permission.WRITE_EXTERNAL_STORAGE,
+        # 아래 권한들은 안드로이드 13 이상에서 개별 파일(이미지/오디오 등) 접근 시 필요합니다.
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VIDEO",
+        "android.permission.READ_MEDIA_AUDIO"
+    ]
+    
+    # 앱이 켜지기 전에 권한 요청창을 즉시 호출합니다.
+    request_permissions(required_permissions)
 # ================================================================= constants
+
+
 EDIT_MODE = True
 
 ASSET_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")

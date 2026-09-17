@@ -962,7 +962,7 @@ class RootView(BoxLayout):
 
 
         Clock.schedule_once(self._place_legend, 0)
-        Clock.schedule_once(lambda dt: self.open_patient(), 0.4)
+#        Clock.schedule_once(lambda dt: self.open_patient(), 0.4)
 
     # ============================================================ loading
     def open_patient(self):

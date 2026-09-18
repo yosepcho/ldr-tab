@@ -870,16 +870,16 @@ class RootView(BoxLayout):
 #            on_release=lambda *a: self.show_smb_test()
 #        )
 
-#        open_btn = Button(
-#            text="Open",
-#            size_hint_x=None,
-#            width=dp(110),
-#            font_size=sp(17)
-#        )
+        open_btn = Button(
+            text="Open",
+            size_hint_x=None,
+            width=dp(110),
+            font_size=sp(17)
+        )
 
-#        open_btn.bind(
-#            on_release=lambda *a: self.open_patient()
-#        )
+        open_btn.bind(
+            on_release=lambda *a: self.open_patient()
+        )
 
         dose_btn = Button(
             text="Dose",

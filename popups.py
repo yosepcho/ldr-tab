@@ -20,8 +20,8 @@ from kivy.uix.popup import Popup
 from kivy.uix.scrollview import ScrollView
 
 
-CELL_H = dp(38)   # 50
-CELL_W = dp(96)   # 110
+CELL_H = dp(50)   # 38
+CELL_W = dp(140)   # 96
 GAP = dp(4)
 PAD = dp(8)
 TITLE_H = dp(34)

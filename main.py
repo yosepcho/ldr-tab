@@ -141,20 +141,20 @@ EXTRA_STOCK = {2: 2, 3: 2}
 
 # ================================================================= legend
 LEGEND_TEXT = (
-    "-0.5  ->  1    2.5  ->  7\n"
-    "  0.5  ->  3    3.5  ->  9\n"
-    "  1.5  ->  5    4.5  ->  11"
+    "-0.5  ->  1     2.5  ->  7\n"
+    "  0.5  ->  3     3.5  ->  9\n"
+    "  1.5  ->  5     4.5  ->  11"
 )
 
-LEGEND_W = dp(200)
+LEGEND_W = dp(270)
 LEGEND_H = dp(100)
-LEGEND_FS = sp(15)
+LEGEND_FS = sp(17)
 LEGEND_MARGIN = dp(3)
 
 # ================================================================= dose box
 DOSE_W = dp(300)
 DOSE_H = dp(120)
-DOSE_FS = sp(14)
+DOSE_FS = sp(12)
 
 
 
@@ -852,7 +852,7 @@ class RootView(BoxLayout):
         left.bind(pos=lambda w, v: setattr(self._lbg, "pos", v),
                   size=lambda w, v: setattr(self._lbg, "size", v))
 
-        top = BoxLayout(size_hint_y=None, height=dp(54), spacing=dp(6))
+        top = BoxLayout(size_hint_y=None, height=dp(30), spacing=dp(6))
         self.info_label = Label(text="No patient loaded",
                                 color=BLACK, bold=True,
                                 font_size=sp(14), halign="left",
@@ -864,7 +864,7 @@ class RootView(BoxLayout):
 #            text="SMB",
 #            size_hint_x=None,
 #            width=dp(80),
-#            font_size=sp(17)
+#            font_size=sp(14)
 #        )
 #        smb_btn.bind(
 #            on_release=lambda *a: self.show_smb_test()
@@ -874,7 +874,7 @@ class RootView(BoxLayout):
             text="Open",
             size_hint_x=None,
             width=dp(80),
-            font_size=sp(14)
+            font_size=sp(12)
         )
 
         open_btn.bind(
@@ -885,7 +885,7 @@ class RootView(BoxLayout):
             text="Dose",
             size_hint_x=None,
             width=dp(80),
-            font_size=sp(14)
+            font_size=sp(12)
         )
 
  #       dose_btn.bind(

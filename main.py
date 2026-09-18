@@ -44,7 +44,7 @@ from kivy.metrics import dp, sp
 # ---------------------------------------------------------------- app modules
 import filesource
 from filesource import get_files, list_patient_files, label_for, parse_filename
-from core.patient_pdf import get_prostate_info    #debug
+#from core.patient_pdf import get_prostate_info    #debug
 from popups import choose_option, choose_from_list, info
 
 from core.read_txt import load_patient_path
@@ -888,12 +888,12 @@ class RootView(BoxLayout):
             font_size=sp(17)
         )
 
-        dose_btn.bind(
-            on_release=lambda *a: self.show_dose_popup()
-        )
+ #       dose_btn.bind(
+ #           on_release=lambda *a: self.show_dose_popup()
+ #       )
 
         top.add_widget(self.info_label)
-        top.add_widget(smb_btn)
+#        top.add_widget(smb_btn)
         top.add_widget(open_btn)
         top.add_widget(dose_btn)
 
@@ -1087,60 +1087,60 @@ class RootView(BoxLayout):
                    initial=self.dose.get(key),
                    integer=is_int)
 
-    def show_dose_popup(self):
+#    def show_dose_popup(self):
 
-        data = get_prostate_info(self.patient_no)
-       
-        root = GridLayout(
-            cols=3,
-            spacing=dp(10),
-            padding=dp(15),
-        )
+#        data = get_prostate_info(self.patient_no)
+#
+#        root = GridLayout(
+#            cols=3,
+#            spacing=dp(10),
+#            padding=dp(15),
+#        )
 
-        def cell(text, halign="center", bold=False):
-            lbl = Label(
-                text=str(text),
-                font_size=sp(50),
-                bold=bold,
-                halign=halign,
-                valign="middle",
-            )
-            lbl.bind(
-                size=lambda w, *a: setattr(w, "text_size", w.size)
-            )
-            return lbl
+#        def cell(text, halign="center", bold=False):
+#            lbl = Label(
+#                text=str(text),
+#                font_size=sp(50),
+#                bold=bold,
+#                halign=halign,
+#                valign="middle",
+#            )
+#            lbl.bind(
+#                size=lambda w, *a: setattr(w, "text_size", w.size)
+#            )
+#            return lbl
 
-#        # Total Volume
-#        root.add_widget(cell("Total Volume", halign="left"))
-#        root.add_widget(cell(f"{data['Total Volume']:.2f} cm³"))
-#        root.add_widget(cell("-"))
+##        # Total Volume
+##        root.add_widget(cell("Total Volume", halign="left"))
+##        root.add_widget(cell(f"{data['Total Volume']:.2f} cm³"))
+##        root.add_widget(cell("-"))
 
         # V100
-        root.add_widget(cell("V100%", halign="left"))
-        root.add_widget(cell(f"{data['V100'][0]:.2f} cm³"))
-        root.add_widget(cell(f"{data['V100'][1]:.2f} %"))
+#        root.add_widget(cell("V100%", halign="left"))
+#        root.add_widget(cell(f"{data['V100'][0]:.2f} cm³"))
+#        root.add_widget(cell(f"{data['V100'][1]:.2f} %"))
 
         # V150
-        root.add_widget(cell("V150%", halign="left"))
-        root.add_widget(cell(f"{data['V150'][0]:.2f} cm³"))
-        root.add_widget(cell(f"{data['V150'][1]:.2f} %"))
+#        root.add_widget(cell("V150%", halign="left"))
+#        root.add_widget(cell(f"{data['V150'][0]:.2f} cm³"))
+#        root.add_widget(cell(f"{data['V150'][1]:.2f} %"))
 
         # V200
-        root.add_widget(cell("V200%", halign="left"))
-        root.add_widget(cell(f"{data['V200'][0]:.2f} cm³"))
-        root.add_widget(cell(f"{data['V200'][1]:.2f} %"))
+#        root.add_widget(cell("V200%", halign="left"))
+#        root.add_widget(cell(f"{data['V200'][0]:.2f} cm³"))
+#        root.add_widget(cell(f"{data['V200'][1]:.2f} %"))
 
         # D90
-        root.add_widget(cell("D90%", halign="left"))
-        root.add_widget(cell(f"{data['D90'][0]:.2f} Gy"))
-        root.add_widget(cell(f"{data['D90'][1]:.2f} %"))
+#        root.add_widget(cell("D90%", halign="left"))
+#        root.add_widget(cell(f"{data['D90'][0]:.2f} Gy"))
+#        root.add_widget(cell(f"{data['D90'][1]:.2f} %"))
 
 
-        Popup(
-            title="Prostate Dose Information",
-            content=root,
-            size_hint=(0.85, 0.55)
-        ).open()
+#        Popup(
+#            title="Prostate Dose Information",
+#            content=root,
+#            size_hint=(0.85, 0.55)
+#        ).open()
 
     def _recalc_rows(self):
         if not self.summary:

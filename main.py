@@ -141,9 +141,9 @@ EXTRA_STOCK = {2: 2, 3: 2}
 
 # ================================================================= legend
 LEGEND_TEXT = (
-    "-0.5  ->  1          2.5  ->  7\n"
-    "  0.5  ->  3         3.5  ->  9\n"
-    "  1.5  ->  5         4.5  ->  11"
+    "-0.5  ->  1             2.5  ->  7\n"
+    "  0.5  ->  3            3.5  ->  9\n"
+    "  1.5  ->  5            4.5  ->  11"
 )
 
 LEGEND_W = dp(270)
@@ -168,7 +168,7 @@ class LegendBox(Label):
             bold=True,
             font_size=LEGEND_FS,
             halign="left",
-            valign="middle",
+            valign="top",
             size_hint=(None, None),
             size=(LEGEND_W, LEGEND_H),
             **kw
@@ -1207,8 +1207,8 @@ class RootView(BoxLayout):
         self.grid.clear_widgets()
         self.row_index = []
 
-        FS = sp(20)          # 데이터 셀 폰트
-        rh = dp(24)          # 데이터 행 높이
+        FS = sp(17)          # 데이터 셀 폰트
+        rh = dp(22)          # 데이터 행 높이
 
         live = [n for n, i in self.summary.items() if not i["is_removed"]]
         all_hl = bool(live) and all(self.summary[n]["highlight"] for n in live)

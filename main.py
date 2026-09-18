@@ -949,12 +949,12 @@ class RootView(BoxLayout):
 
         # plan summary (under template)
         sumbox = BoxLayout(orientation="vertical", size_hint_y=None,
-                           height=dp(180), spacing=dp(4),
+                           height=dp(150), spacing=dp(4),                #test_debug
                            padding=(dp(40), 0, dp(40), dp(4)))
         sumbox.add_widget(TCell(text="Plan Summary", bg=HEAD_BG,color=BLACK, bold=True,
-                                font_size=sp(25), size_hint_y=None,
-                                height=dp(32)))
-        self.sumgrid = GridLayout(cols=4, size_hint_y=None, height=dp(132))
+                                font_size=sp(23), size_hint_y=None,
+                                height=dp(30)))
+        self.sumgrid = GridLayout(cols=4, size_hint_y=None, height=dp(120))
         sumbox.add_widget(self.sumgrid)
         right.add_widget(sumbox)
 
@@ -1207,8 +1207,8 @@ class RootView(BoxLayout):
         self.grid.clear_widgets()
         self.row_index = []
 
-        FS = sp(22)          # 데이터 셀 폰트
-        rh = dp(28)          # 데이터 행 높이
+        FS = sp(20)          # 데이터 셀 폰트
+        rh = dp(24)          # 데이터 행 높이
 
         live = [n for n, i in self.summary.items() if not i["is_removed"]]
         all_hl = bool(live) and all(self.summary[n]["highlight"] for n in live)

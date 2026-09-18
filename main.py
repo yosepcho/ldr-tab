@@ -44,7 +44,7 @@ from kivy.metrics import dp, sp
 # ---------------------------------------------------------------- app modules
 import filesource
 from filesource import get_files, list_patient_files, label_for, parse_filename
-#from core.patient_pdf import get_prostate_info    #debug
+from core.patient_pdf import get_prostate_info    #debug
 from popups import choose_option, choose_from_list, info
 
 from core.read_txt import load_patient_path
@@ -60,7 +60,7 @@ from core.edit_mode import (
     count_extra_at,
     set_retraction,
 )
-from core.smb_test import test_smb   #debug
+#from core.smb_test import test_smb   #debug
 
 if platform == 'android':
     from android.permissions import request_permissions, Permission
@@ -860,15 +860,15 @@ class RootView(BoxLayout):
         self.info_label.bind(size=lambda w, v:
                              setattr(w, "text_size", v))
 #########debug
-        smb_btn = Button(
-            text="SMB",
-            size_hint_x=None,
-            width=dp(110),
-            font_size=sp(17)
-        )
-        smb_btn.bind(
-            on_release=lambda *a: self.show_smb_test()
-        )
+#        smb_btn = Button(
+#            text="SMB",
+#            size_hint_x=None,
+#            width=dp(110),
+#            font_size=sp(17)
+#        )
+#        smb_btn.bind(
+#            on_release=lambda *a: self.show_smb_test()
+#        )
 
         open_btn = Button(
             text="Open",
@@ -1675,8 +1675,9 @@ class LDRApp(App):
     def build(self):
         
         try:
-            root = RootView()
-        except Exception as e:
+            return RootView()
+             
+        except Exception:
             return Label(text=traceback.format_exc())
 
 #        return RootView()

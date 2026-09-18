@@ -148,13 +148,13 @@ LEGEND_TEXT = (
 
 LEGEND_W = dp(200)
 LEGEND_H = dp(100)
-LEGEND_FS = sp(18)
+LEGEND_FS = sp(15)
 LEGEND_MARGIN = dp(3)
 
 # ================================================================= dose box
 DOSE_W = dp(300)
 DOSE_H = dp(120)
-DOSE_FS = sp(15)
+DOSE_FS = sp(14)
 
 
 
@@ -855,7 +855,7 @@ class RootView(BoxLayout):
         top = BoxLayout(size_hint_y=None, height=dp(54), spacing=dp(6))
         self.info_label = Label(text="No patient loaded",
                                 color=BLACK, bold=True,
-                                font_size=sp(18), halign="left",
+                                font_size=sp(14), halign="left",
                                 valign="middle")
         self.info_label.bind(size=lambda w, v:
                              setattr(w, "text_size", v))
@@ -863,7 +863,7 @@ class RootView(BoxLayout):
 #        smb_btn = Button(
 #            text="SMB",
 #            size_hint_x=None,
-#            width=dp(110),
+#            width=dp(80),
 #            font_size=sp(17)
 #        )
 #        smb_btn.bind(
@@ -873,8 +873,8 @@ class RootView(BoxLayout):
         open_btn = Button(
             text="Open",
             size_hint_x=None,
-            width=dp(110),
-            font_size=sp(17)
+            width=dp(80),
+            font_size=sp(14)
         )
 
         open_btn.bind(
@@ -884,8 +884,8 @@ class RootView(BoxLayout):
         dose_btn = Button(
             text="Dose",
             size_hint_x=None,
-            width=dp(110),
-            font_size=sp(17)
+            width=dp(80),
+            font_size=sp(14)
         )
 
  #       dose_btn.bind(
@@ -1212,15 +1212,15 @@ class RootView(BoxLayout):
 
         live = [n for n, i in self.summary.items() if not i["is_removed"]]
         all_hl = bool(live) and all(self.summary[n]["highlight"] for n in live)
-        hl_head = "H.L.\n" + (CHK_ON if all_hl else CHK_OFF)
+        hl_head = (CHK_ON if all_hl else CHK_OFF)
 
         if self.show_4d:
-            titles = ["Real\nnumber", "4D\nnumber", "Retraction\n(cm)",
-                      "Hole\nLocation", "Number\nSeeds", hl_head]
+            titles = ["Real", "4D", "Ret.",
+                      "Hole", "%Seeds", hl_head]
             widths = [0.16, 0.15, 0.20, 0.18, 0.17, 0.14]
         else:
-            titles = ["Real\nnumber", "Retraction\n(cm)",
-                      "Hole\nLocation", "Number\nSeeds", hl_head]
+            titles = ["Real", "Ret.",
+                      "Hole", "#Seeds", hl_head]
             widths = [0.19, 0.23, 0.21, 0.20, 0.17]
 
         for idx, (t, w) in enumerate(zip(titles, widths)):

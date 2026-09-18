@@ -141,9 +141,9 @@ EXTRA_STOCK = {2: 2, 3: 2}
 
 # ================================================================= legend
 LEGEND_TEXT = (
-    "-0.5  ->  1             2.5  ->  7\n"
-    "  0.5  ->  3            3.5  ->  9\n"
-    "  1.5  ->  5            4.5  ->  11"
+    "-0.5  ->  1                  2.5  ->  7\n"
+    "  0.5  ->  3                 3.5  ->  9\n"
+    "  1.5  ->  5                 4.5  ->  11"
 )
 
 LEGEND_W = dp(270)
@@ -168,7 +168,7 @@ class LegendBox(Label):
             bold=True,
             font_size=LEGEND_FS,
             halign="left",
-            valign="top",
+            valign="middle",
             size_hint=(None, None),
             size=(LEGEND_W, LEGEND_H),
             **kw
@@ -856,7 +856,7 @@ class RootView(BoxLayout):
         self.info_label = Label(text="No patient loaded",
                                 color=BLACK, bold=True,
                                 font_size=sp(13), halign="left",
-                                valign="middle")
+                                valign="top")
         self.info_label.bind(size=lambda w, v:
                              setattr(w, "text_size", v))
 #########debug
@@ -949,12 +949,12 @@ class RootView(BoxLayout):
 
         # plan summary (under template)
         sumbox = BoxLayout(orientation="vertical", size_hint_y=None,
-                           height=dp(150), spacing=dp(4),                #test_debug
+                           height=dp(130), spacing=dp(4),                #test_debug
                            padding=(dp(40), 0, dp(40), dp(4)))
         sumbox.add_widget(TCell(text="Plan Summary", bg=HEAD_BG,color=BLACK, bold=True,
-                                font_size=sp(23), size_hint_y=None,
-                                height=dp(30)))
-        self.sumgrid = GridLayout(cols=4, size_hint_y=None, height=dp(120))
+                                font_size=sp(18), size_hint_y=None,
+                                height=dp(22)))
+        self.sumgrid = GridLayout(cols=4, size_hint_y=None, height=dp(100))
         sumbox.add_widget(self.sumgrid)
         right.add_widget(sumbox)
 
@@ -1207,8 +1207,8 @@ class RootView(BoxLayout):
         self.grid.clear_widgets()
         self.row_index = []
 
-        FS = sp(17)          # 데이터 셀 폰트
-        rh = dp(22)          # 데이터 행 높이
+        FS = sp(18)          # 데이터 셀 폰트
+        rh = dp(23)          # 데이터 행 높이
 
         live = [n for n, i in self.summary.items() if not i["is_removed"]]
         all_hl = bool(live) and all(self.summary[n]["highlight"] for n in live)
@@ -1357,14 +1357,14 @@ class RootView(BoxLayout):
             ["Seed", self.base_seeds, ds_txt, cur_seeds],
         ]
 
-        h = dp(44)
+        h = dp(30)
         for r, row in enumerate(rows):
             for c, val in enumerate(row):
                 is_head = (r == 0)
                 bg = HEAD_BG if is_head else (HL_BG if c == 3 else WHITE)
                 cell = TCell(text=str(val), bg=bg,
                              bold=is_head or c == 3 or c == 0,
-                             font_size=sp(24),
+                             font_size=sp(20),
                              size_hint_y=None, height=h)
                 self.sumgrid.add_widget(cell)
 

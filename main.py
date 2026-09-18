@@ -60,7 +60,7 @@ from core.edit_mode import (
     count_extra_at,
     set_retraction,
 )
-#from core.smb_test import test_smb   #debug
+from core.smb_test import test_smb   #debug
 
 if platform == 'android':
     from android.permissions import request_permissions, Permission
@@ -860,15 +860,15 @@ class RootView(BoxLayout):
         self.info_label.bind(size=lambda w, v:
                              setattr(w, "text_size", v))
 #########debug
-#        smb_btn = Button(
-#            text="SMB",
-#            size_hint_x=None,
-#            width=dp(110),
-#            font_size=sp(17)
-#        )
-#        smb_btn.bind(
-#            on_release=lambda *a: self.show_smb_test()
-#        )
+        smb_btn = Button(
+            text="SMB",
+            size_hint_x=None,
+            width=dp(110),
+            font_size=sp(17)
+        )
+        smb_btn.bind(
+            on_release=lambda *a: self.show_smb_test()
+        )
 
         open_btn = Button(
             text="Open",
@@ -893,7 +893,7 @@ class RootView(BoxLayout):
         )
 
         top.add_widget(self.info_label)
-#        top.add_widget(smb_btn)
+        top.add_widget(smb_btn)
         top.add_widget(open_btn)
         top.add_widget(dose_btn)
 

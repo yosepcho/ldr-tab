@@ -8,7 +8,6 @@ title = LDR Template
 
 package.name = ldrtemplate
 package.domain = org.ldr
-
 source.dir = .
 
 # 포함할 확장자

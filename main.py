@@ -141,9 +141,9 @@ EXTRA_STOCK = {2: 2, 3: 2}
 
 # ================================================================= legend
 LEGEND_TEXT = (
-    "-0.5  ->  1     2.5  ->  7\n"
-    "  0.5  ->  3     3.5  ->  9\n"
-    "  1.5  ->  5     4.5  ->  11"
+    "-0.5  ->  1          2.5  ->  7\n"
+    "  0.5  ->  3         3.5  ->  9\n"
+    "  1.5  ->  5         4.5  ->  11"
 )
 
 LEGEND_W = dp(270)
@@ -811,7 +811,7 @@ def head_cell(text, **kw):
     kw.setdefault("bg", HEAD_BG)
     kw.setdefault("bold", True)
     kw.setdefault("size_hint_y", None)
-    kw.setdefault("height", dp(46))
+    kw.setdefault("height", dp(24))
     return TCell(text=text, **kw)
 
 
@@ -855,7 +855,7 @@ class RootView(BoxLayout):
         top = BoxLayout(size_hint_y=None, height=dp(30), spacing=dp(6))
         self.info_label = Label(text="No patient loaded",
                                 color=BLACK, bold=True,
-                                font_size=sp(14), halign="left",
+                                font_size=sp(13), halign="left",
                                 valign="middle")
         self.info_label.bind(size=lambda w, v:
                              setattr(w, "text_size", v))
@@ -901,7 +901,7 @@ class RootView(BoxLayout):
 
 
         # header row
-        self.header = GridLayout(cols=6, size_hint_y=None, height=dp(46),
+        self.header = GridLayout(cols=6, size_hint_y=None, height=dp(24),
                                  spacing=0)
         left.add_widget(self.header)
 
@@ -1163,7 +1163,7 @@ class RootView(BoxLayout):
         self.show_4d = self.need_4d()         
         self._recalc_rows()
 
-        self.info_label.text = "%s   %s   Image : %s" % (
+        self.info_label.text = "%s   %s   \nImage : %s" % (
             self.patient_no, self.patient_name, nop_label(self.numplane))
 
         self.build_table()

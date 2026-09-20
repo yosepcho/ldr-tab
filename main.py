@@ -146,10 +146,10 @@ LEGEND_TEXT = (
     "  1.5  ->  5                 4.5  ->  11"
 )
 
-LEGEND_W = dp(270)
-LEGEND_H = dp(100)
-LEGEND_FS = sp(17)
-LEGEND_MARGIN = dp(3)
+LEGEND_W = dp(300)
+LEGEND_H = dp(120)
+LEGEND_FS = sp(18)
+LEGEND_MARGIN = dp(8)
 
 # ================================================================= dose box
 DOSE_W = dp(300)
@@ -855,8 +855,8 @@ class RootView(BoxLayout):
         top = BoxLayout(size_hint_y=None, height=dp(30), spacing=dp(6))
         self.info_label = Label(text="No patient loaded",
                                 color=BLACK, bold=True,
-                                font_size=sp(13), halign="left",
-                                valign="top")
+                                font_size=sp(15), halign="left",
+                                valign="middle")
         self.info_label.bind(size=lambda w, v:
                              setattr(w, "text_size", v))
 #########debug
@@ -1163,7 +1163,7 @@ class RootView(BoxLayout):
         self.show_4d = self.need_4d()         
         self._recalc_rows()
 
-        self.info_label.text = "%s   %s   \nImage : %s" % (
+        self.info_label.text = "%s   %s   \n [%s]" % (
             self.patient_no, self.patient_name, nop_label(self.numplane))
 
         self.build_table()
@@ -1465,15 +1465,15 @@ class RootView(BoxLayout):
         self.refresh()
 
     def row_clicked(self, real_no):
+        self.toggle_highlight(real_no)
+#        s = self.summary.get(real_no)
     
-        s = self.summary.get(real_no)
+#        if s is None or s["is_removed"]:
+#            return
     
-        if s is None or s["is_removed"]:
-            return
+#        s["highlight"] = not s["highlight"]
     
-        s["highlight"] = not s["highlight"]
-    
-        self.refresh()
+#        self.refresh()
 
     def _find_base_at(self, col, row):
         for n, i in self.summary.items():

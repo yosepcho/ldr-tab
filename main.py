@@ -148,13 +148,13 @@ LEGEND_TEXT = (
 
 LEGEND_W = dp(300)
 LEGEND_H = dp(120)
-LEGEND_FS = sp(20)
+LEGEND_FS = sp(26)
 LEGEND_MARGIN = dp(3)
 
 # ================================================================= dose box
 DOSE_W = dp(300)
 DOSE_H = dp(120)
-DOSE_FS = sp(15)
+DOSE_FS = sp(14)
 
 
 

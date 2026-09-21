@@ -141,9 +141,9 @@ EXTRA_STOCK = {2: 2, 3: 2}
 
 # ================================================================= legend
 LEGEND_TEXT = (
-    "-0.5  ->  1             2.5  ->  7\n"
-    "  0.5  ->  3            3.5  ->  9\n"
-    "  1.5  ->  5            4.5  ->  11"
+    "-0.5  ->  1          2.5  ->  7\n"
+    "  0.5  ->  3         3.5  ->  9\n"
+    "  1.5  ->  5         4.5  ->  11"
 )
 
 LEGEND_W = dp(300)
@@ -169,7 +169,7 @@ class LegendBox(Label):
             font_size=LEGEND_FS,
             halign="left",
             valign="top",
-            line_height=1.3,
+            line_height=1.2,
             size_hint=(None, None),
             size=(LEGEND_W, LEGEND_H),
             **kw

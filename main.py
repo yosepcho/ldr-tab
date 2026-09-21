@@ -141,14 +141,14 @@ EXTRA_STOCK = {2: 2, 3: 2}
 
 # ================================================================= legend
 LEGEND_TEXT = (
-    "-0.5  ->  1                  2.5  ->  7\n"
-    "  0.5  ->  3                 3.5  ->  9\n"
-    "  1.5  ->  5                 4.5  ->  11"
+    "-0.5  ->  1              2.5  ->  7\n"
+    "  0.5  ->  3             3.5  ->  9\n"
+    "  1.5  ->  5             4.5  ->  11"
 )
 
 LEGEND_W = dp(300)
 LEGEND_H = dp(120)
-LEGEND_FS = sp(18)
+LEGEND_FS = sp(24)
 LEGEND_MARGIN = dp(8)
 
 # ================================================================= dose box
@@ -169,6 +169,7 @@ class LegendBox(Label):
             font_size=LEGEND_FS,
             halign="left",
             valign="middle",
+            line_height=1.4,
             size_hint=(None, None),
             size=(LEGEND_W, LEGEND_H),
             **kw
@@ -1163,7 +1164,7 @@ class RootView(BoxLayout):
         self.show_4d = self.need_4d()         
         self._recalc_rows()
 
-        self.info_label.text = "%s   %s   \n [%s]" % (
+        self.info_label.text = "%s   %s   [%s]" % (
             self.patient_no, self.patient_name, nop_label(self.numplane))
 
         self.build_table()
@@ -1208,7 +1209,7 @@ class RootView(BoxLayout):
         self.row_index = []
 
         FS = sp(18)          # 데이터 셀 폰트
-        rh = dp(23)          # 데이터 행 높이
+        rh = dp(22)          # 데이터 행 높이
 
         live = [n for n, i in self.summary.items() if not i["is_removed"]]
         all_hl = bool(live) and all(self.summary[n]["highlight"] for n in live)

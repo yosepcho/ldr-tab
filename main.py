@@ -141,9 +141,9 @@ EXTRA_STOCK = {2: 2, 3: 2}
 
 # ================================================================= legend
 LEGEND_TEXT = (
-    "-0.5  ->  1            2.5  ->  7\n"
-    "  0.5  ->  3           3.5  ->  9\n"
-    "  1.5  ->  5           4.5  ->  11"
+    "-0.5  ->  1             2.5  ->  7\n"
+    "  0.5  ->  3            3.5  ->  9\n"
+    "  1.5  ->  5            4.5  ->  11"
 )
 
 LEGEND_W = dp(300)
@@ -154,7 +154,7 @@ LEGEND_MARGIN = dp(3)
 # ================================================================= dose box
 DOSE_W = dp(300)
 DOSE_H = dp(120)
-DOSE_FS = sp(12)
+DOSE_FS = sp(15)
 
 
 
@@ -168,8 +168,8 @@ class LegendBox(Label):
             bold=True,
             font_size=LEGEND_FS,
             halign="left",
-            valign="middle",
-            line_height=1.2,
+            valign="top",
+            line_height=1.3,
             size_hint=(None, None),
             size=(LEGEND_W, LEGEND_H),
             **kw
@@ -380,7 +380,8 @@ def ask_number(title, on_ok=None, initial=None, integer=False, **legacy):
         font_size=sp(34),
         size_hint_y=None,
         height=dp(56),
-        halign="right"
+        halign="right",
+        readonly=True
     )
 
     disp.bind(
@@ -456,16 +457,8 @@ def ask_number(title, on_ok=None, initial=None, integer=False, **legacy):
         bar.add_widget(b)
     root.add_widget(bar)
     
-    def focus_input(dt):
-        disp.focus = True
-        disp.select_all()
-
     pop.open()
 
-    Clock.schedule_once(
-        lambda dt: setattr(disp, "focus", True),
-        0.1
-    )
 
 def nop_value(nop):
     """36 미만이면 그대로, 36 이상이면 매칭된 값을 반환 (숫자만)."""

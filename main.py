@@ -141,15 +141,15 @@ EXTRA_STOCK = {2: 2, 3: 2}
 
 # ================================================================= legend
 LEGEND_TEXT = (
-    "-0.5  ->  1              2.5  ->  7\n"
-    "  0.5  ->  3             3.5  ->  9\n"
-    "  1.5  ->  5             4.5  ->  11"
+    "-0.5  ->  1            2.5  ->  7\n"
+    "  0.5  ->  3           3.5  ->  9\n"
+    "  1.5  ->  5           4.5  ->  11"
 )
 
 LEGEND_W = dp(300)
 LEGEND_H = dp(120)
-LEGEND_FS = sp(24)
-LEGEND_MARGIN = dp(8)
+LEGEND_FS = sp(20)
+LEGEND_MARGIN = dp(3)
 
 # ================================================================= dose box
 DOSE_W = dp(300)
@@ -169,7 +169,7 @@ class LegendBox(Label):
             font_size=LEGEND_FS,
             halign="left",
             valign="middle",
-            line_height=1.4,
+            line_height=1.2,
             size_hint=(None, None),
             size=(LEGEND_W, LEGEND_H),
             **kw
@@ -1164,7 +1164,7 @@ class RootView(BoxLayout):
         self.show_4d = self.need_4d()         
         self._recalc_rows()
 
-        self.info_label.text = "%s   %s   [%s]" % (
+        self.info_label.text = "%s %s [%s]" % (
             self.patient_no, self.patient_name, nop_label(self.numplane))
 
         self.build_table()
